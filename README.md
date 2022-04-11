@@ -62,6 +62,8 @@ The node gripper_server (type gripper_server.py) creates a [Job execution servic
 
 The node gripper_test (type test_open_close.py) open and close the gripper periodically.
 
+![gif](doc/gripper.gif)
+
 ## Add the gripper to a robot
 
 1) Attach gripper to robot
