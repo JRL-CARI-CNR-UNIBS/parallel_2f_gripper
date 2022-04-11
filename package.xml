@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>parallel_2f_gripper</name>
+  <version>0.0.1</version>
+  <description>The parallel_2f_gripper package</description>
+
+  <maintainer email="manuel.beschi@unibs.it">Manuel Beschi</maintainer>
+
+  <license>BSD3</license>
+
+  <url type="website">https://github.com/JRL-CARI-CNR-UNIBS/parallel_2f_gripper</url>
+
+  <author email="manuel.beschi@unibs.it">Manuel Beschi</author>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+
+  <export>
+  </export>
+</package>

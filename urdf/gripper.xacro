@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+
+<!--
+Copyright (c) 2022, JRL-CARI CNR-STIIMA/UNIBS
+Manuel Beschi manuel.beschi@unibs.it
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the <organization> nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="gripper" params="prefix">
+  <xacro:include filename="$(find parallel_2f_gripper)/urdf/box.xacro" />
+  <xacro:include filename="$(find parallel_2f_gripper)/urdf/finger.xacro" />
+  <xacro:include filename="$(find parallel_2f_gripper)/urdf/transmission.xacro" />
+  <xacro:property name="base_x" value="0.1" />
+  <xacro:property name="base_z" value="0.05" />
+  <xacro:property name="link_width" value="0.01" />
+  <xacro:property name="link_height" value="0.05" />
+  <xacro:property name="crank_length" value="0.07" />
+  <xacro:property name="phalanx_length" value="0.05" />
+  <xacro:property name="rod_length" value="0.05" />
+
+  <xacro:box name="gripper_base" width="${base_x}" height="${link_height}" length="${base_z}"/>
+
+
+  <link name="${prefix}open_tip"/>
+  <joint name="${prefix}open_tip_joint" type="fixed">
+    <origin xyz="0 0 ${cos(1)*crank_length+base_z+phalanx_length}" rpy="0 0 0"/>
+    <parent link="${prefix}gripper_base" />
+    <child link="${prefix}open_tip" />
+  </joint>
+
+  <link name="${prefix}closed_tip"/>
+  <joint name="${prefix}closed_tip_joint" type="fixed">
+    <origin xyz="0 0 ${cos(asin(0.5*base_x/crank_length))*crank_length+base_z+phalanx_length}" rpy="0 0 0"/>
+    <parent link="${prefix}gripper_base" />
+    <child link="${prefix}closed_tip" />
+  </joint>
+
+    <link name="${prefix}zero_pos_tip"/>
+    <joint name="${prefix}zero_pos_tip_joint" type="fixed">
+      <origin xyz="0 0 ${crank_length+base_z+phalanx_length}" rpy="0 0 0"/>
+      <parent link="${prefix}gripper_base" />
+      <child link="${prefix}zero_pos_tip" />
+    </joint>
+
+  <xacro:finger
+    prefix        ="${prefix}right_"
+    base_name     ="${prefix}gripper_base"
+    link_width    ="${link_width}"
+    link_height   ="${link_height}"
+    crank_length  ="${crank_length}"
+    rod_length    ="${rod_length}"
+    phalanx_length ="${phalanx_length}"
+    base_x        ="${base_x}"
+    base_z        ="${base_z}"
+    mimic_joint   =""
+    rot_z         ="0"
+  />
+
+  <xacro:finger
+    prefix        ="${prefix}left_"
+    base_name     ="${prefix}gripper_base"
+    link_width    ="${link_width}"
+    link_height   ="${link_height}"
+    crank_length  ="${crank_length}"
+    rod_length    ="${rod_length}"
+    phalanx_length ="${phalanx_length}"
+    base_x        ="${base_x}"
+    base_z        ="${base_z}"
+    mimic_joint   ="right_finger_joint"
+    rot_z         ="${pi}"
+  />
+  <gazebo>
+    <!-- gearbox between the two finger (like mimic for URDF) -->
+    <joint name="${prefix}left_right" type="gearbox">
+     <parent>${prefix}right_crank</parent>
+     <child>${prefix}left_crank</child>
+
+     <!-- movements are computed between:
+     - parent and gearbox_reference_body
+     - child and gearbox_reference_body
+     -->
+     <gearbox_reference_body>${prefix}gripper_base</gearbox_reference_body>
+     <!-- the movement has already a negative sign -->
+     <gearbox_ratio>1</gearbox_ratio>
+     <!-- pose does not care -->
+     <pose relative_to="gripper_base">0 0 0 0 0 0</pose>
+     <axis>
+       <xyz>0 1 0</xyz>
+     </axis>
+   </joint>
+  </gazebo>
+
+  <xacro:transmission prefix="${prefix}right_"/>
+
+  </xacro:macro>
+</robot>
