@@ -61,3 +61,31 @@ which load the gripper and a Coke can in gazebo.
 The node gripper_server (type gripper_server.py) creates a [Job execution service](https://github.com/JRL-CARI-CNR-UNIBS/manipulation/blob/master/manipulation_msgs/srv/JobExecution.srv) to open (property_id="open") and close the gripper (property_id="close")
 
 The node gripper_test (type test_open_close.py) open and close the gripper periodically.
+
+## Add the gripper to a robot
+
+1) Attach gripper to robot
+```xml
+
+...xacro of the robotic cell...
+
+
+<xacro:include filename="$(find parallel_2f_gripper)/urdf/gripper.xacro" />
+<xacro:gripper prefix=""/> <!-- add gripper, add a prefix if needed -->
+
+
+<joint name="flange_gripper_joint" type="fixed">
+  <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/> <!-- change origin if needed -->
+  <parent link="[ROBOT_FLANGE]" /> <!-- change ROBOT_FLANGE name -->
+  <child link="gripper_base" /> <!-- add prefix if needed -->
+</joint>
+
+<!-- Add gazebo_ros_control plugin -->
+<gazebo>
+  <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+    <robotNamespace>/manipulator</robotNamespace>
+    <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+  </plugin>
+</gazebo>
+```
+2) add a controller like [this](config/control.yaml), chaning names and namespaces if needed.
