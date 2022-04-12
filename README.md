@@ -6,6 +6,12 @@ Gazebo model of a 2-Fingers gripper with closed-chain fingers. The movements of 
 The gripper has two fingers with a four-bars kinematic.
 ![gripper kinematic](doc/gripper.png)
 
+*zero_pos_tip* is the position of the center of the tips when the gripper joint is in zero position
+
+*open_tip* is the position of the center of the tips when the gripper is fully open
+
+*open_tip* is the position of the center of the tips when the gripper is fully closed
+
 ### Finger kinematics
 
 The finger kinematics in URDF is modeled with mimic_joint, while the SDF format (obtained by URDF add <gazebo></gazebo> tags) uses the closed-chain structure
