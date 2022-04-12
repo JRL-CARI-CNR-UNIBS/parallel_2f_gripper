@@ -22,7 +22,7 @@ The phalanx is fixed to the (moving) rod.
 *Note:* The base rod has to be a link with non-null inertia is necessary to avoid model reduction.
 
 ### Finger synchronization
-In the URDF file the fingers are synchronized using mimic_joint. The SDF file use a *gearbox* joint:
+In the URDF file the fingers are synchronized using mimic_joint. The SDF file uses a *gearbox* joint:
 ```xml
 <gazebo>
   <!-- gearbox between the two finger (like mimic for URDF) -->
