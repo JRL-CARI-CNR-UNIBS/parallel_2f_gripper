@@ -89,31 +89,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     phalanx_length ="${phalanx_length}"
     base_x        ="${base_x}"
     base_z        ="${base_z}"
-    mimic_joint   ="right_finger_joint"
+    mimic_joint   =""
     rot_z         ="${pi}"
   />
-  <gazebo>
-    <!-- gearbox between the two finger (like mimic for URDF) -->
-    <joint name="${prefix}left_right" type="gearbox">
-     <parent>${prefix}right_crank</parent>
-     <child>${prefix}left_crank</child>
 
-     <!-- movements are computed between:
-     - parent and gearbox_reference_body
-     - child and gearbox_reference_body
-     -->
-     <gearbox_reference_body>${prefix}gripper_base</gearbox_reference_body>
-     <!-- the movement has already a negative sign -->
-     <gearbox_ratio>1</gearbox_ratio>
-     <!-- pose does not care -->
-     <pose relative_to="gripper_base">0 0 0 0 0 0</pose>
-     <axis>
-       <xyz>0 1 0</xyz>
-     </axis>
-   </joint>
-  </gazebo>
 
   <xacro:transmission prefix="${prefix}right_"/>
+  <xacro:transmission prefix="${prefix}left_"/>
 
   </xacro:macro>
 </robot>

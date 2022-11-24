@@ -34,6 +34,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
+  <arg name="fixed" default="True" />
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -46,7 +47,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
-  <include file="$(find parallel_2f_gripper)/launch/upload_standalone.launch"/>
+  <include file="$(find parallel_2f_gripper)/launch/upload_standalone.launch">
+    <arg name="fixed" value="$(arg fixed)" />
+  </include>
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
     args="-urdf -model manipulator -param robot_description"/>
 
