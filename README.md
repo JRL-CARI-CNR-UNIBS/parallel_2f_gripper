@@ -22,6 +22,9 @@ The phalanx is fixed to the (moving) rod.
 *Note:* The base rod has to be a link with non-null inertia is necessary to avoid model reduction.
 
 ### Finger synchronization
+
+<span style="color:red">GEARBOX Joint do not respect third Newton law in Gazebo 11, we removed it from the Xacro to avoid problems (thus using two separated joints). We leave the gearbox code in this README for reference</span>
+
 In the URDF file the fingers are synchronized using mimic_joint. The SDF file uses a *gearbox* joint:
 ```xml
 <gazebo>
