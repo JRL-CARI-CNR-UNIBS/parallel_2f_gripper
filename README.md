@@ -52,7 +52,7 @@ In the URDF file the fingers are synchronized using mimic_joint. The SDF file us
 ## Gripper ROS Control
 Gazebo exposes right_finger_joint (hardware_interface/EffortJointInterface). Gazebo splits the torque between joints automatically thanks to the gearbox.
 
-In the example below, the used controller is a [robot_control/TwoFingersController](https://github.com/JRL-CARI-CNR-UNIBS/standard_ros_control_library/tree/master/mimic_controller) with the folloing configuration
+In the example below, the used controller is a [robot_control/TwoFingersController](https://github.com/JRL-CARI-CNR-UNIBS/mimic_controllers) with the following configuration
 ```yaml
 gripper_controller:
   type: robot_control/TwoFingersController
