@@ -52,9 +52,17 @@ In the URDF file the fingers are synchronized using mimic_joint. The SDF file us
 ## Gripper ROS Control
 Gazebo exposes right_finger_joint (hardware_interface/EffortJointInterface). Gazebo splits the torque between joints automatically thanks to the gearbox.
 
-In the example below, the used controller is a [robot_control/MimicEffortController](https://github.com/JRL-CARI-CNR-UNIBS/standard_ros_control_library/tree/master/mimic_controller), with only one joint in other to be able to set the grasping torque with a JointState message
-
-(TDB: use a controller with less dependecies required)
+In the example below, the used controller is a [robot_control/TwoFingersController](https://github.com/JRL-CARI-CNR-UNIBS/standard_ros_control_library/tree/master/mimic_controller) with the folloing configuration
+```yaml
+gripper_controller:
+  type: robot_control/TwoFingersController
+  leading_joint: "right_finger_joint"
+  following_joint: "left_finger_joint"
+  spring: 10  # elasticity between finger: add an effort contribution spring*(leading_joint_position-following_joint_position)
+  damper: 10  # viscosity between finger: add an effort contribution spring*(leading_joint_velocity-following_joint_velocity)
+  setpoint_topic_name: "/gripper/joint_target"
+```
+ to be able to set the grasping torque with a JointState message
 
 ## Gripper controller
 The node gripper_server (type gripper_server.py) creates a [Job execution service](https://github.com/JRL-CARI-CNR-UNIBS/manipulation/blob/master/manipulation_msgs/srv/JobExecution.srv) to open (property_id="open") and close the gripper (property_id="close")

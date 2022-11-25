@@ -42,12 +42,9 @@ gripper:
     publish_rate: 500
 
   gripper_controller:
-    type: robot_control/MimicEffortController
-    joint_names:
-    - right_finger_joint
-    - left_finger_joint
-
+    type: robot_control/TwoFingersController
     leading_joint: "right_finger_joint"
+    following_joint: "left_finger_joint"
+    spring: 10  # elasticity between finger: add an effort contribution spring*(leading_joint_position-following_joint_position)
+    damper: 10  # viscosity between finger: add an effort contribution spring*(leading_joint_velocity-following_joint_velocity)
     setpoint_topic_name: "/gripper/joint_target"
-    multiplier: [1.0, 1.0]
-    offset: [0.0, 0.0]
