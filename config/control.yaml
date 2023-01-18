@@ -45,9 +45,14 @@ gripper:
     type: robot_control/MimicEffortController
     joint_names:
     - right_finger_joint
-    - left_finger_joint
+    # - left_finger_joint
 
     leading_joint: "right_finger_joint"
     setpoint_topic_name: "/gripper/joint_target"
     multiplier: [1.0, 1.0]
     offset: [0.0, 0.0]
+
+  joint_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: right_finger_joint
+    pid: {p: 100.0, i: 0.01, d: 10.0}

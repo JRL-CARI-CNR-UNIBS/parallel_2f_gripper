@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+
 <!--
 Copyright (c) 2022, JRL-CARI CNR-STIIMA/UNIBS
 Manuel Beschi manuel.beschi@unibs.it
@@ -27,24 +28,23 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<launch>
-  <arg name="gui" default="True" />
-  <arg name="simulation" default="True" />
-  <param name="use_gui" value="$(arg gui)"/>
+<robot name="parallel_gripper" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find parallel_2f_gripper)/urdf/gripper.xacro" />
+  <xacro:gripper prefix=""/>
 
-  <include file="$(find parallel_2f_gripper)/launch/upload.launch"/>
 
-  <node if = "$(arg simulation)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="/use_gui" value="false"/>
-    <param name="rate" value="500"/>
-    <rosparam param="/source_list">[/parallel_gripper/joint_states]</rosparam>
-  </node>
+  <link name="world"/>
+  <joint name="world_joint" type="fixed">
+    <origin xyz="0 0 0.05" rpy="${pi*0.5} 0 0"/>
+    <parent link="world" />
+    <child link="gripper_base" />
+  </joint>
 
-  <node name="joint_target_publisher" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" >
-    <param name="rate" value="500"/>
-    <remap if = "$(arg simulation)" from="joint_states" to="/parallel_gripper/joint_target"/>
-  </node>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/gripper</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parallel_2f_gripper)/launch/config.rviz" required="true" />
-</launch>
+</robot>

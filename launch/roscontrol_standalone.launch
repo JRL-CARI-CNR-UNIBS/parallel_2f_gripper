@@ -33,6 +33,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <rosparam file="$(find parallel_2f_gripper)/config/control.yaml" command="load"/>
 
 <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-output="screen" ns="gripper" args="joint_state_controller gripper_controller"/>
+output="screen" ns="gripper" args="joint_state_controller joint_position_controller"/>
 
+<!-- gripper_controller -->
+<!-- joint_position_controller -->
 </launch>

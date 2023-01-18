@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<launch>
+  <rosparam command="load" file="$(find parallel_2f_gripper)/config/pybullet_param.yaml"/>
+  <rosparam command="load" file="$(find parallel_2f_gripper)/config/model_param.yaml"/>
+</launch>

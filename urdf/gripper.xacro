@@ -28,8 +28,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="gripper" params="prefix">
+<robot name="parallel_gripper" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="gripper" params="prefix:=''">
   <xacro:include filename="$(find parallel_2f_gripper)/urdf/box.xacro" />
   <xacro:include filename="$(find parallel_2f_gripper)/urdf/finger.xacro" />
   <xacro:include filename="$(find parallel_2f_gripper)/urdf/transmission.xacro" />
@@ -41,10 +41,45 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <xacro:property name="phalanx_length" value="0.05" />
   <xacro:property name="rod_length" value="0.05" />
 
-  <xacro:box name="gripper_base" width="${base_x}" height="${link_height}" length="${base_z}"/>
+  <xacro:box name="${prefix}gripper_base" width="${base_x}" height="${link_height}" length="${base_z}"/>
+
+  <!-- <link name="${prefix}fingers_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 ${0.5*crank_length/2}" rpy="0 0 0" />
+      <geometry>
+        <box size="${link_width} ${link_height} ${crank_length/2}"/>
+      </geometry>
+      <material name="aluminium">
+        <color rgba="${132/256} ${135/256} ${137/256} 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 ${0.5*crank_length/2}" rpy="0 0 0" />
+      <geometry>
+        <box size="${link_width} ${link_height} ${crank_length/2}"/>
+      </geometry>
+      <material name="aluminium">
+        <color rgba="${132/256} ${135/256} ${137/256} 1" />
+      </material>
+    </collision>
+  </link>
+
+  <joint name="${prefix}fingers_joint" type="revolute">
+    <origin xyz="0 0 0.01" rpy="0 0 0"/>
+    <parent link="${prefix}gripper_base" />
+    <child link="${prefix}fingers_link" />
+    <axis xyz="0 1 0" />
+    <limit lower="${-asin(0.5*base_x/crank_length)}" upper="${1}" velocity="5.0" effort="5" />
+  </joint> -->
 
 
-  <link name="${prefix}open_tip"/>
+<!-- Add if to include these link only for rviz  -->
+  <!-- <link name="${prefix}open_tip"/>
   <joint name="${prefix}open_tip_joint" type="fixed">
     <origin xyz="0 0 ${cos(1)*crank_length+base_z+phalanx_length}" rpy="0 0 0"/>
     <parent link="${prefix}gripper_base" />
@@ -58,12 +93,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <child link="${prefix}closed_tip" />
   </joint>
 
-    <link name="${prefix}zero_pos_tip"/>
-    <joint name="${prefix}zero_pos_tip_joint" type="fixed">
-      <origin xyz="0 0 ${crank_length+base_z+phalanx_length}" rpy="0 0 0"/>
-      <parent link="${prefix}gripper_base" />
-      <child link="${prefix}zero_pos_tip" />
-    </joint>
+  <link name="${prefix}zero_pos_tip"/>
+  <joint name="${prefix}zero_pos_tip_joint" type="fixed">
+    <origin xyz="0 0 ${crank_length+base_z+phalanx_length}" rpy="0 0 0"/>
+    <parent link="${prefix}gripper_base" />
+    <child link="${prefix}zero_pos_tip" />
+  </joint> -->
 
   <xacro:finger
     prefix        ="${prefix}right_"
@@ -78,7 +113,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     mimic_joint   =""
     rot_z         ="0"
   />
-
+  <!-- mimic_joint   ="${prefix}fingers_joint" -->
   <xacro:finger
     prefix        ="${prefix}left_"
     base_name     ="${prefix}gripper_base"
@@ -89,13 +124,162 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     phalanx_length ="${phalanx_length}"
     base_x        ="${base_x}"
     base_z        ="${base_z}"
-    mimic_joint   =""
+    mimic_joint   ="${prefix}right_finger_joint"
     rot_z         ="${pi}"
   />
 
+  <!-- <link name="${prefix}central_link_1">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.01" />
+      <inertia
+        ixx="0.00001"
+        ixy="0.00000"
+        ixz="0.00000"
+        iyy="0.00001"
+        iyz="0.00000"
+        izz="0.00000" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.001 0.09 0.001" />
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="${prefix}central_link_2">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.01" />
+      <inertia
+        ixx="0.00001"
+        ixy="0.00000"
+        ixz="0.00000"
+        iyy="0.00001"
+        iyz="0.00000"
+        izz="0.00000" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.001 0.09 0.001" />
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="${prefix}left_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.01" />
+      <inertia
+        ixx="0.00001"
+        ixy="0.00000"
+        ixz="0.00000"
+        iyy="0.00001"
+        iyz="0.00000"
+        izz="0.00000" />
+    </inertial>
+    <visual>
+      <origin xyz="0.075 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.150 0.001 0.001" />
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <link name="${prefix}right_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.01" />
+      <inertia
+        ixx="0.00001"
+        ixy="0.00000"
+        ixz="0.00000"
+        iyy="0.00001"
+        iyz="0.00000"
+        izz="0.00000" />
+    </inertial>
+    <visual>
+      <origin xyz="0.075 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.150 0.001 0.001" />
+      </geometry>
+      <material name="Cyan">
+        <color rgba="0 1.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="${prefix}left_joint" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="${prefix}left_rod" />
+    <child link="${prefix}left_link" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <joint name="${prefix}right_joint" type="continuous">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="${prefix}right_crank" />
+    <child link="${prefix}right_link" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <joint name="${prefix}central_joint_1" type="continuous">
+    <origin xyz="0.120 0 -0.055" rpy="0 0 0"/>
+    <parent link="${prefix}right_link" />
+    <child link="${prefix}central_link_1" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <joint name="${prefix}central_joint_2" type="continuous">
+    <origin xyz="0.120 0 -0.055" rpy="${pi} 0 0"/>
+    <parent link="${prefix}left_link" />
+    <child link="${prefix}central_link_2" />
+    <axis xyz="0 1 0" />
+  </joint> -->
+
+  <!-- <gazebo>
+    <joint name="${prefix}central_joint" type="fixed">
+      <parent>${prefix}central_link_1</parent>
+      <child>${prefix}central_link_2</child>
+      <pose relative_to="${prefix}central_link_1"> 0, 0, 0, 0, 0, 0</pose>
+      <axis>
+        <xyz expressed_in="central_link">0 1 0</xyz>
+      </axis>
+    </joint>
+    <joint name="${prefix}linear_joint_1" type="prismatic">
+      <parent>${prefix}gripper_base</parent>
+      <child>${prefix}central_link_1</child>
+      <pose relative_to="${prefix}gripper_base"> 0, 0, 0, 0, ${pi/2}, 0</pose>
+      <axis>
+        <xyz expressed_in="central_link_1">1 0 0</xyz>
+      </axis>
+    </joint>
+    <joint name="${prefix}linear_joint_2" type="prismatic">
+      <parent>${prefix}gripper_base</parent>
+      <child>${prefix}central_link_2</child>
+      <pose relative_to="${prefix}gripper_base"> 0, 0, 0, 0, ${pi/2}, 0</pose>
+      <axis>
+        <xyz expressed_in="central_link_2">1 0 0</xyz>
+      </axis>
+    </joint>
+  </gazebo> -->
+
+  <!-- <link name="${prefix}central_link_virtual"/>
+  <joint name="${prefix}linear_joint_virtuale_1" type="prismatic">
+    <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+    <parent link="${prefix}gripper_base" />
+    <child link="${prefix}central_link_virtual" />
+    <axis xyz="1 0 0" />
+    <limit lower="${-pi}" upper="${pi}" velocity="2.0" effort="10" />
+  </joint> -->
 
   <xacro:transmission prefix="${prefix}right_"/>
-  <xacro:transmission prefix="${prefix}left_"/>
+  <!-- <xacro:transmission prefix="${prefix}left_"/> -->
 
   </xacro:macro>
 </robot>

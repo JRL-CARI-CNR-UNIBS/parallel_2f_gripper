@@ -43,13 +43,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <parent link="${base_name}" />
       <child link="${prefix}crank" />
       <axis xyz="0 1 0" />
-      <limit lower="${-asin(0.5*base_x/crank_length)}" upper="${1}" velocity="5.0" effort="50" />
+      <limit lower="${-asin(0.5*base_x/crank_length)}" upper="${1}" velocity="5.0" effort="5" />
 
       <xacro:unless value="${mimic_joint == ''}">
         <mimic joint="${mimic_joint}" multiplier="1" offset="0" />
       </xacro:unless>
     </joint>
-
 
     <joint name="${prefix}joint_2_5" type="fixed">
       <origin xyz="0 0 0" rpy="0 ${-pi/2} 0"/>
@@ -58,54 +57,53 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <axis xyz="0 1 0" />
     </joint>
 
-      <joint name="${prefix}joint_1_2" type="revolute">
-        <origin xyz="0 0 ${crank_length}" rpy="0 ${pi/2} 0"/>
-        <parent link="${prefix}crank" />
-        <child link="${prefix}rod" />
-        <axis xyz="0 1 0" />
-        <limit lower="${-pi}" upper="${pi}" velocity="2.0" effort="10" />
-        <mimic joint="${prefix}finger_joint" multiplier="-1" offset="0" />
+    <joint name="${prefix}joint_1_2" type="revolute">
+      <origin xyz="0 0 ${crank_length}" rpy="0 ${pi/2} 0"/>
+      <parent link="${prefix}crank" />
+      <child link="${prefix}rod" />
+      <axis xyz="0 1 0" />
+      <limit lower="${-pi}" upper="${pi}" velocity="2.0" effort="10" />
+      <mimic joint="${prefix}finger_joint" multiplier="-1" offset="0" />
+    </joint>
+
+    <joint name="${prefix}joint_2_3" type="revolute">
+      <origin xyz="0 0 ${rod_length}" rpy="0 ${pi/2} 0"/>
+      <parent link="${prefix}rod" />
+      <child link="${prefix}external_crank" />
+      <axis xyz="0 1 0" />
+      <limit lower="${-pi}" upper="${pi}" velocity="2.0" effort="10" />
+      <mimic joint="${prefix}finger_joint" multiplier="1" offset="0" />
+    </joint>
+
+    <joint name="${prefix}joint_3_4" type="revolute">
+      <origin xyz="0 0 ${crank_length}" rpy="0 ${pi/2} 0"/>
+      <parent link="${prefix}external_crank" />
+      <child link="${prefix}base_rod" />
+      <axis xyz="0 1 0" />
+      <limit lower="${-pi}" upper="${pi}" velocity="2.0" effort="10" />
+      <mimic joint="${prefix}finger_joint" multiplier="-1" offset="0" />
+    </joint>
+
+    <!-- Add if to include this link only for rviz  -->
+    <!-- <link name="${prefix}tip"/>
+    <joint name="${prefix}tip_joint" type="fixed">
+      <origin xyz="${-0.5*link_width} 0 ${phalanx_length}" rpy="0 0 0"/>
+      <parent link="${prefix}phalanx" />
+      <child link="${prefix}tip" />
+    </joint> -->
+
+
+    <!-- <gazebo>
+      <joint name="${prefix}joint_4_1" type="revolute">
+        <parent>${prefix}base_rod</parent>
+        <child>${prefix}crank</child>
+        <pose relative_to="${prefix}base_rod">0 0 ${rod_length}   0 ${pi/2} 0</pose>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
       </joint>
 
-
-      <joint name="${prefix}joint_2_3" type="revolute">
-        <origin xyz="0 0 ${rod_length}" rpy="0 ${pi/2} 0"/>
-        <parent link="${prefix}rod" />
-        <child link="${prefix}external_crank" />
-        <axis xyz="0 1 0" />
-        <limit lower="${-pi}" upper="${pi}" velocity="2.0" effort="10" />
-        <mimic joint="${prefix}finger_joint" multiplier="1" offset="0" />
-      </joint>
-
-
-        <joint name="${prefix}joint_3_4" type="revolute">
-          <origin xyz="0 0 ${crank_length}" rpy="0 ${pi/2} 0"/>
-          <parent link="${prefix}external_crank" />
-          <child link="${prefix}base_rod" />
-          <axis xyz="0 1 0" />
-          <limit lower="${-pi}" upper="${pi}" velocity="2.0" effort="10" />
-          <mimic joint="${prefix}finger_joint" multiplier="-1" offset="0" />
-        </joint>
-
-        <link name="${prefix}tip"/>
-        <joint name="${prefix}tip_joint" type="fixed">
-          <origin xyz="${-0.5*link_width} 0 ${phalanx_length}" rpy="0 0 0"/>
-          <parent link="${prefix}phalanx" />
-          <child link="${prefix}tip" />
-        </joint>
-
-
-      <gazebo>
-        <joint name="${prefix}joint_4_1" type="revolute">
-         <parent>${prefix}base_rod</parent>
-         <child>${prefix}crank</child>
-         <pose relative_to="${prefix}base_rod">0 0 ${rod_length}   0 ${pi/2} 0</pose>
-         <axis>
-           <xyz>0 1 0</xyz>
-         </axis>
-       </joint>
-
-       <joint name="${prefix}joint_0_4" type="revolute">
+      <joint name="${prefix}joint_0_4" type="revolute">
         <parent>${base_name}</parent>
         <child>${prefix}base_rod</child>
         <pose relative_to="${base_name}">${(0.5*(base_x+link_width)+rod_length)*cos(rot_z)} 0 ${base_z} 0 0 ${rot_z}</pose>
@@ -113,15 +111,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
           <xyz>0 1 0</xyz>
         </axis>
       </joint>
-      </gazebo>
+    </gazebo>
 
-      <gazebo reference="${prefix}phalanx">
-        <self_collide>1</self_collide>
-        <kp>100000</kp>
-        <kd>200</kd>
-        <mu1>2</mu1>
-        <mu2>2</mu2>
-      </gazebo>
+    <gazebo reference="${prefix}phalanx">
+      <self_collide>1</self_collide>
+      <kp>100000</kp>
+      <kd>200</kd>
+      <mu1>2</mu1>
+      <mu2>2</mu2>
+    </gazebo> -->
 
 
     </xacro:macro>

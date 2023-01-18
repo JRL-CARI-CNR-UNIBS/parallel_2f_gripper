@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+  <include file="$(find parallel_2f_gripper)/launch/load_config.launch" />
+
+  <node name="parallel_gripper_pybullet" pkg="pybullet_utils" type="pybullet_simulation.py" output="screen"/>
+
+</launch>
