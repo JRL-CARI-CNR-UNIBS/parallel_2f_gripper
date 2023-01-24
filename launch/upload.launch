@@ -28,7 +28,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <launch>
-  <arg name="fixed" default="True" />
-  <param name="robot_description" if="$(arg fixed)" command="$(find xacro)/xacro --inorder $(find parallel_2f_gripper)/urdf/gripper_rviz.xacro" />
-  <param name="robot_description" unless="$(arg fixed)" command="$(find xacro)/xacro --inorder $(find parallel_2f_gripper)/urdf/gripper_pybullet.xacro" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find parallel_2f_gripper)/urdf/gripper_rviz.xacro" />
 </launch>

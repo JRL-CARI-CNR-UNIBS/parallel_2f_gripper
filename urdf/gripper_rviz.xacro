@@ -30,8 +30,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <robot name="parallel_gripper" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find parallel_2f_gripper)/urdf/gripper.xacro" />
-  <xacro:gripper prefix=""/>
 
+  <xacro:property name="prefix" value="''" />
+  <xacro:property name="type"   value="'rviz'" />
+  
+  <xacro:gripper prefix="${prefix}" type="${type}"/>
 
   <link name="world"/>
   <joint name="world_joint" type="fixed">
@@ -39,12 +42,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <parent link="world" />
     <child link="gripper_base" />
   </joint>
-
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/gripper</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-    </plugin>
-  </gazebo>
 
 </robot>

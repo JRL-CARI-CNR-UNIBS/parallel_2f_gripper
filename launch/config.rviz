@@ -64,7 +64,16 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        closed_tip:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         gripper_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_base_rod:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -74,12 +83,55 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        left_external_crank:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_phalanx:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_rod:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        open_tip:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        right_base_rod:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         right_crank:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
+        right_external_crank:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_phalanx:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_rod:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        zero_pos_tip:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -94,13 +146,35 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        closed_tip:
+          Value: false
         gripper_base:
+          Value: false
+        left_base_rod:
           Value: false
         left_crank:
           Value: false
+        left_external_crank:
+          Value: false
+        left_phalanx:
+          Value: false
+        left_rod:
+          Value: false
+        open_tip:
+          Value: false
+        right_base_rod:
+          Value: false
         right_crank:
           Value: false
+        right_external_crank:
+          Value: false
+        right_phalanx:
+          Value: false
+        right_rod:
+          Value: false
         world:
+          Value: false
+        zero_pos_tip:
           Value: false
       Marker Alpha: 1
       Marker Scale: 1
@@ -111,9 +185,25 @@ Visualization Manager:
       Tree:
         world:
           gripper_base:
+            closed_tip:
+              {}
             left_crank:
+              left_rod:
+                left_external_crank:
+                  left_base_rod:
+                    {}
+                left_phalanx:
+                  {}
+            open_tip:
               {}
             right_crank:
+              right_rod:
+                right_external_crank:
+                  right_base_rod:
+                    {}
+                right_phalanx:
+                  {}
+            zero_pos_tip:
               {}
       Update Interval: 0
       Value: true

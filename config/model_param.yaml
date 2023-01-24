@@ -1,6 +1,0 @@
-coke_can:
-  position: [0,-0.15,0.05]
-  orientation: [0,0,0]
-  fixed: 0    # 1 to fix robot to world, 0 to spawn it unfixed
-  foulder_path: '/home/gauss/projects/personal_ws/src/parallel_2f_gripper/urdf'
-  urdf_file_name: 'coke_can'   # an urdf file with the same name will be generated

@@ -28,8 +28,21 @@ cmake_minimum_required(VERSION 3.0.2)
 project(parallel_2f_gripper)
 
 find_package(catkin REQUIRED COMPONENTS
-  roscpp
+  rospy
+  message_generation
+  std_msgs
 )
+
+add_service_files(
+  FILES
+  MoveGripper.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+
 catkin_package(
 )
 include_directories(

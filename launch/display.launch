@@ -28,9 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <launch>
-  <arg name="gui" default="True" />
-  <arg name="simulation" default="True" />
-  <param name="use_gui" value="$(arg gui)"/>
+  <arg name="simulation" default="False" />
 
   <include file="$(find parallel_2f_gripper)/launch/upload.launch"/>
 
