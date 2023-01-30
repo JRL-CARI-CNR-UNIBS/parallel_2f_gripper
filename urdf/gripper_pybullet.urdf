@@ -56,6 +56,20 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
+  <!-- <xacro:property name="contact" value='true' />
+    <xacro:property name="stiffness" value="30000.0" />
+    <xacro:property name="damping" value="1000.0" />
+    <xacro:property name="spinning_friction" value="0.1" />
+    <xacro:property name="lateral_friction" value="1.0" /> -->
   <link name="right_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -81,6 +95,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="right_external_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -106,6 +129,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="right_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -131,6 +163,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="right_base_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -156,6 +197,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="right_phalanx">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -181,6 +231,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
+  <!-- <xacro:box name="${prefix}phalanx" width="${link_width}" height="${link_height}" length="${phalanx_length}"
+               contact="${contact}" stiffness="${stiffness}" damping="${damping}" spinning_friction="${spinning_friction}" lateral_friction="${lateral_friction}"/> -->
   <joint name="right_finger_joint" type="revolute">
     <origin rpy="0 0 0" xyz="0.055 0 0.05"/>
     <parent link="gripper_base"/>
@@ -252,6 +313,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <mu1>2</mu1>
       <mu2>2</mu2>
     </gazebo> -->
+  <!-- <xacro:property name="contact" value='true' />
+    <xacro:property name="stiffness" value="30000.0" />
+    <xacro:property name="damping" value="1000.0" />
+    <xacro:property name="spinning_friction" value="0.1" />
+    <xacro:property name="lateral_friction" value="1.0" /> -->
   <link name="left_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -277,6 +343,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="left_external_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -302,6 +377,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="left_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -327,6 +411,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="left_base_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -352,6 +445,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
   <link name="left_phalanx">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -377,6 +479,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       </material>
     </collision>
   </link>
+  <!-- <xacro:if value="${contact}"> -->
+  <contact>
+    <friction_anchor/>
+    <stiffness value=""/>
+    <damping value=""/>
+    <spinning_friction value=""/>
+    <lateral_friction value=""/>
+  </contact>
+  <!-- </xacro:if> -->
+  <!-- <xacro:box name="${prefix}phalanx" width="${link_width}" height="${link_height}" length="${phalanx_length}"
+               contact="${contact}" stiffness="${stiffness}" damping="${damping}" spinning_friction="${spinning_friction}" lateral_friction="${lateral_friction}"/> -->
   <joint name="left_finger_joint" type="revolute">
     <origin rpy="0 0 3.141592653589793" xyz="-0.055 0 0.05"/>
     <parent link="gripper_base"/>

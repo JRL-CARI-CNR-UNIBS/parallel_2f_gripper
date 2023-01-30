@@ -30,13 +30,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:macro name="finger" params="prefix base_name link_width link_height crank_length rod_length phalanx_length base_x base_z mimic_joint rot_z">
+    <!-- <xacro:property name="contact" value='true' />
+    <xacro:property name="stiffness" value="30000.0" />
+    <xacro:property name="damping" value="1000.0" />
+    <xacro:property name="spinning_friction" value="0.1" />
+    <xacro:property name="lateral_friction" value="1.0" /> -->
+
     <xacro:include filename="$(find parallel_2f_gripper)/urdf/box.xacro" />
     <xacro:include filename="$(find parallel_2f_gripper)/urdf/transmission.xacro" />
     <xacro:box name="${prefix}crank"  width="${link_width}" height="${link_height}" length="${crank_length}"/>
     <xacro:box name="${prefix}external_crank"  width="${link_width}" height="${link_height}" length="${crank_length}"/>
     <xacro:box name="${prefix}rod"  width="${link_width}" height="${link_height}" length="${rod_length}"/>
     <xacro:box name="${prefix}base_rod"  width="${link_width}" height="${link_height}" length="${rod_length}"/>
-    <xacro:box name="${prefix}phalanx"     width="${link_width}" height="${link_height}" length="${phalanx_length}"/>
+    <xacro:box name="${prefix}phalanx" width="${link_width}" height="${link_height}" length="${phalanx_length}"/>
+    <!-- <xacro:box name="${prefix}phalanx" width="${link_width}" height="${link_height}" length="${phalanx_length}"
+               contact="${contact}" stiffness="${stiffness}" damping="${damping}" spinning_friction="${spinning_friction}" lateral_friction="${lateral_friction}"/> -->
 
     <joint name="${prefix}finger_joint" type="revolute">
       <origin xyz="${0.5*(base_x+link_width)*cos(rot_z)} 0 ${base_z}" rpy="0 0 ${rot_z}"/>

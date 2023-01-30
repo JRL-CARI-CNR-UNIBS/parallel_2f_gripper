@@ -28,7 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="box" params="name length width height">
+  <xacro:macro name="box" params="name length width height contact='false' stiffness='' damping='' spinning_friction='' lateral_friction=''">
     <link name="${name}">
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0" />
@@ -54,5 +54,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         </material>
       </collision>
     </link>
+    <!-- <xacro:if value="${contact}"> -->
+    <contact>
+      <friction_anchor/>
+      <stiffness value="${stiffness}"/>
+      <damping value="${damping}"/>
+      <spinning_friction value="${spinning_friction}"/>
+      <lateral_friction value="${lateral_friction}"/>
+    </contact>
+    <!-- </xacro:if> -->
   </xacro:macro>
 </robot>

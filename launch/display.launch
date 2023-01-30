@@ -44,5 +44,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   </node>
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parallel_2f_gripper)/launch/config.rviz" required="true" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find parallel_2f_gripper)/config/config.rviz" required="true" />
 </launch>
