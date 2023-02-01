@@ -96,7 +96,8 @@ def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rat
         if (target_torque > 0.0):
             target_position = 0
         else:
-            target_position = mm_max
+#            target_position = mm_max
+            target_position = joint_max_val
         print('Mode: torque. Target_position: ' + str(target_position))
 
     if (control_mode == 'velocity'):
@@ -106,13 +107,14 @@ def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rat
         if (target_velocity > 0.0):
             target_position = 0
         else:
-            target_position = mm_max
+#            target_position = mm_max
+            target_position = joint_max_val
         print('Mode: velocity. Target_position: ' + str(target_position))
 
-    if not target_velocity:
-        target_velocity = 40.0
+    if ((not target_velocity) or (target_velocity == 0)):
+        target_velocity = 0.1
     print('             Target_velocity: ' + str(target_velocity))
-    if not target_torque:
+    if ((not target_torque) or (target_torque == 0)):
         target_torque = 5.0
     print('             Target_torque: ' + str(target_torque))
 
@@ -172,7 +174,7 @@ def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rat
         elif (dx > 0 and real_position > target_position - tollerance):
             finish = True
             print('Target position')
-        elif (abs(real_torque) > (target_torque * 2)):
+        elif (((dx < 0) and (real_torque < -(target_torque * 2))) or ((dx > 0) and (real_torque > (target_torque * 2)))):
             finish = True
             print('Target_torque')
         rate.sleep()
@@ -241,6 +243,7 @@ def main():
 
     rospy.spin()
     jt_pub_thread.join()
+
 
 if __name__ == '__main__':
     main()

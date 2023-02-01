@@ -15,7 +15,8 @@ parallel_gripper:
       child_link: 'left_crank'
       type: 'gear'             # joint type: prismatic, fixed, point2point, gear
       gear_ratio: -1
-      erp: 0.1
+      erp: 5
+      # erp: 0.1
       axis: [0,1,0]                   # joint axis, in child link frame
       parent_frame_position: [0,0,0]  # position of the joint frame relative to parent center of mass frame.
       child_frame_position: [0,0,0]   # position of the joint frame relative to a given child center of mass frame (or world origin if no child specified)
@@ -45,3 +46,40 @@ parallel_gripper:
       child_frame_position: [0,0,0]   # position of the joint frame relative to a given child center of mass frame (or world origin if no child specified)
       child_frame_orientation: [0,0,0,1]  # the orientation of the joint frame relative to the child center of mass coordinate frame (or world origin frame if no child specified)
       max_force: 100000
+  link_dynamics:
+    - link_name: 'right_phalanx'
+      lateral_friction: 30
+      spinning_friction: 0.1
+      rolling_friction: 0.1
+      contact_stiffness: 100000
+      contact_damping: 1
+      linear_damping: 0
+      angular_damping: 0
+      friction_anchor: 1
+    - link_name: 'left_phalanx'
+      lateral_friction: 30
+      spinning_friction: 0.1
+      rolling_friction: 0.1
+      contact_stiffness: 100000
+      contact_damping: 1
+      linear_damping: 0
+      angular_damping: 0
+      friction_anchor: 1
+    - link_name: 'right_crank'
+      lateral_friction: 30
+      spinning_friction: 0.1
+      rolling_friction: 0.1
+      contact_stiffness: 100000
+      contact_damping: 1
+      linear_damping: 0
+      angular_damping: 0
+      friction_anchor: 1
+    - link_name: 'left_crank'
+      lateral_friction: 30
+      spinning_friction: 0.1
+      rolling_friction: 0.1
+      contact_stiffness: 100000
+      contact_damping: 1
+      linear_damping: 0
+      angular_damping: 0
+      friction_anchor: 1
