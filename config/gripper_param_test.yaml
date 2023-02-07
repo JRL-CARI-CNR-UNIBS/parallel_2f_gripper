@@ -1,4 +1,4 @@
-$(arg robot_name):
+$(arg gripper_name):
   start_position: [0,0,0.1]
   # start_orientation: [0,0,0]
   start_orientation: [1.5708,0,0]
@@ -9,10 +9,10 @@ $(arg robot_name):
   joint_control_mode : 'position' # positon (which is in fact POSITION_VELOCITY_PD), velocity, torque and pd.
   constraints:
     - piloted_joint_name: ['$(arg prefix)left_finger_joint']
-      parent_body: '$(arg robot_name)'
-      parent_link: '$(arg prefix)right_crank'
-      child_body: '$(arg robot_name)'
-      child_link: '$(arg prefix)left_crank'
+      parent_body: '$(arg gripper_name)'
+      parent_link: 'right_crank'
+      child_body: '$(arg gripper_name)'
+      child_link: 'left_crank'
       type: 'gear'             # joint type: prismatic, fixed, point2point, gear
       gear_ratio: -1
       erp: 5
@@ -24,10 +24,10 @@ $(arg robot_name):
       child_frame_orientation: [0,0,0,1]  # the orientation of the joint frame relative to the child center of mass coordinate frame (or world origin frame if no child specified)
       max_force: 10000
 
-    - parent_body: '$(arg robot_name)'
-      parent_link: '$(arg prefix)gripper_base'
-      child_body: '$(arg robot_name)'
-      child_link: '$(arg prefix)right_base_rod'
+    - parent_body: '$(arg gripper_name)'
+      parent_link: 'gripper_base'
+      child_body: '$(arg gripper_name)'
+      child_link: 'right_base_rod'
       type: 'fixed'             # joint type: prismatic, fixed, point2point, gear
       axis: [0,0,0]                   # joint axis, in child link frame
       parent_frame_position: [0.105, 0.000, 0.050] # position of the joint frame relative to parent center of mass frame.
@@ -35,10 +35,10 @@ $(arg robot_name):
       child_frame_position: [0,0,0]   # position of the joint frame relative to a given child center of mass frame (or world origin if no child specified)
       child_frame_orientation: [0,0,0,1]  # the orientation of the joint frame relative to the child center of mass coordinate frame (or world origin frame if no child specified)
       max_force: 100000
-    - parent_body: '$(arg robot_name)'
-      parent_link: '$(arg prefix)gripper_base'
-      child_body: '$(arg robot_name)'
-      child_link: '$(arg prefix)left_base_rod'
+    - parent_body: '$(arg gripper_name)'
+      parent_link: 'gripper_base'
+      child_body: '$(arg gripper_name)'
+      child_link: 'left_base_rod'
       type: 'fixed'             # joint type: prismatic, fixed, point2point, gear
       axis: [0,0,0]                   # joint axis, in child link frame
       parent_frame_position: [-0.105, 0.000, 0.050] # position of the joint frame relative to parent center of mass frame.
@@ -47,7 +47,7 @@ $(arg robot_name):
       child_frame_orientation: [0,0,0,1]  # the orientation of the joint frame relative to the child center of mass coordinate frame (or world origin frame if no child specified)
       max_force: 100000
   link_dynamics:
-    - link_name: '$(arg prefix)right_phalanx'
+    - link_name: 'right_phalanx'
       lateral_friction: 30
       spinning_friction: 0.1
       rolling_friction: 0.1
@@ -56,7 +56,7 @@ $(arg robot_name):
       linear_damping: 0
       angular_damping: 0
       friction_anchor: 1
-    - link_name: '$(arg prefix)left_phalanx'
+    - link_name: 'left_phalanx'
       lateral_friction: 30
       spinning_friction: 0.1
       rolling_friction: 0.1
@@ -65,7 +65,7 @@ $(arg robot_name):
       linear_damping: 0
       angular_damping: 0
       friction_anchor: 1
-    - link_name: '$(arg prefix)right_crank'
+    - link_name: 'right_crank'
       lateral_friction: 30
       spinning_friction: 0.1
       rolling_friction: 0.1
@@ -74,7 +74,7 @@ $(arg robot_name):
       linear_damping: 0
       angular_damping: 0
       friction_anchor: 1
-    - link_name: '$(arg prefix)left_crank'
+    - link_name: 'left_crank'
       lateral_friction: 30
       spinning_friction: 0.1
       rolling_friction: 0.1

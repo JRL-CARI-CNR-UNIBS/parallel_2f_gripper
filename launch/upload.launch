@@ -28,5 +28,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <launch>
-  <param name="robot_description" command="$(find xacro)/xacro --inorder $(find parallel_2f_gripper)/urdf/gripper_rviz.xacro" />
+  <arg name="prefix" default=""/>
+  <arg name="robot_name" default="parallel_gripper"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find parallel_2f_gripper)/urdf/gripper_rviz.xacro' prefix:=$(arg prefix) robot_name:=$(arg robot_name)"/>
 </launch>

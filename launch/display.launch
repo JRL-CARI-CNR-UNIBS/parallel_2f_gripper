@@ -28,9 +28,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <launch>
+  <arg name="prefix" default=""/>
+  <arg name="robot_name" default="parallel_gripper"/>
   <arg name="simulation" default="False" />
 
-  <include file="$(find parallel_2f_gripper)/launch/upload.launch"/>
+  <include file="$(find parallel_2f_gripper)/launch/upload.launch">
+    <arg name="prefix" value="$(arg prefix)" />
+    <arg name="robot_name" value="$(arg robot_name)" />
+  </include>
 
   <node if = "$(arg simulation)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
     <param name="/use_gui" value="false"/>

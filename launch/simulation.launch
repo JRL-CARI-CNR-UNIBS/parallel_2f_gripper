@@ -1,7 +1,15 @@
 <?xml version="1.0"?>
 
 <launch>
-  <include file="$(find parallel_2f_gripper)/launch/load_config.launch" />
+  <arg name="prefix" default=""/>
+  <arg name="robot_name" default="parallel_gripper"/>
+
+  <param name="/$(arg robot_name)/prefix" type='str' value='$(arg prefix)'/>
+
+  <include file="$(find parallel_2f_gripper)/launch/load_config.launch">
+    <arg name="prefix" value="$(arg prefix)"/>
+    <arg name="robot_name" value="$(arg robot_name)"/>
+  </include>
 
   <node name="parallel_gripper_pybullet" pkg="pybullet_utils" type="pybullet_simulation.py" output="screen"/>
 

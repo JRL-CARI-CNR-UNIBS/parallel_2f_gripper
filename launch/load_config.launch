@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 
 <launch>
-  <include file="$(find parallel_2f_gripper)/launch/load_gripper_config.launch" />
-  <rosparam command="load" file="$(find parallel_2f_gripper)/config/pybullet_param.yaml"/>
+  <arg name="prefix" default=""/>
+  <arg name="robot_name" default="parallel_gripper"/>
+
+  <include file="$(find parallel_2f_gripper)/launch/load_gripper_config.launch">
+    <arg name="prefix" value="$(arg prefix)"/>
+    <arg name="robot_name" value="$(arg robot_name)"/>
+  </include>
+
+  <rosparam command="load" file="$(find parallel_2f_gripper)/config/pybullet_param.yaml" subst_value="true"/>
 </launch>

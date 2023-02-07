@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 
 <launch>
-  <rosparam command="load" file="$(find parallel_2f_gripper)/config/gripper_param.yaml"/>
+  <arg name="prefix" default=""/>
+  <arg name="robot_name" default="parallel_gripper"/>
+  <rosparam command="load" file="$(find parallel_2f_gripper)/config/gripper_param.yaml" subst_value="true"/>
 </launch>

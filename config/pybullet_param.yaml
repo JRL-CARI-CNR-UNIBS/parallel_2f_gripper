@@ -10,4 +10,4 @@ joint_state_publish_rate: 250
 joint_target_publish_rate: 250
 
 robots:
-- 'parallel_gripper'
+- '$(arg robot_name)'
