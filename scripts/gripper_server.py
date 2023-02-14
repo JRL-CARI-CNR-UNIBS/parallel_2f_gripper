@@ -58,15 +58,15 @@ def cyan_p(msg):
 
 
 def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rate, change_mode_srv, real_js):
-    default_torque = 5
-    mm_default_velocity = 40
+    default_torque = 20
+    mm_default_velocity = 160
     mm_max = 218
     mm_zero_joint = 100
     mm_crank_lenght = 70
     joint_max_val = 1.00
     joint_min_val = -0.80
     joint_tollerance = 0.01
-    print(joint_max_val - joint_min_val)
+
     ratio_mm_to_rad = ((joint_max_val - joint_min_val) / (mm_max))
     red_p(str(ratio_mm_to_rad))
     default_velocity = mm_default_velocity * ratio_mm_to_rad
@@ -145,10 +145,10 @@ def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rat
             dx = -abs(target_velocity) / joint_target_publish_rate
     position[0] = current_position
     rate = rospy.Rate(joint_target_publish_rate)
-    f_time = rospy.Time.now().to_sec()
+    print('dx: ' + str(dx))
     while not finish:
         current_position += dx
-        if (current_position > joint_max_val):
+        if (current_position > joint_max_val and dx > 0):
             current_position -= dx
             finish = True
             print('Joint limit')
