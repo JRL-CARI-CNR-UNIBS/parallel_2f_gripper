@@ -1,10 +1,6 @@
 $(arg robot_name):
-  start_position: [0,0,0.1]
-  # start_orientation: [0,0,0]
-  start_orientation: [1.5708,0,0]
-  fixed: 0    # 1 to fix robot to world, 0 to spawn it unfixed
-  foulder_path: '/home/gauss/projects/personal_ws/src/parallel_2f_gripper/urdf'
-  xacro_file_name: 'gripper_pybullet'   # an urdf file with the same name will be generated
+  package_name: 'parallel_2f_gripper'
+  xacro_file_path: 'urdf/gripper_pybullet.xacro'   # an urdf file with the same name will be generated
   controlled_joint_name: ['$(arg prefix)right_finger_joint'] # right_finger_joint     fingers_joint #,'left_finger_joint']
   joint_control_mode : 'position' # positon (which is in fact POSITION_VELOCITY_PD), velocity, torque and pd.
   constraints:
