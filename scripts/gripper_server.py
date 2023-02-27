@@ -151,19 +151,19 @@ def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rat
         if (current_position > joint_max_val and dx > 0):
             current_position -= dx
             finish = True
-            print('Joint limit')
+            print('Joint limit: '+ str(current_position))
         position[0] = current_position
         real_position = real_js[0].position[real_js[0].name.index('right_finger_joint')]
         real_torque = real_js[0].effort[real_js[0].name.index('right_finger_joint')]
         if ((real_position < joint_min_val and dx < 0) or (real_position > joint_max_val and dx > 0)):
             finish = True
-            print('Joint limit')
+            print('Joint limit: '+ str(current_position))
         elif (dx < 0 and real_position < target_position + joint_tollerance):
             finish = True
-            print('Target position')
+            print('Target position: '+ str(current_position))
         elif (dx > 0 and real_position > target_position - joint_tollerance):
             finish = True
-            print('Target position')
+            print('Target position: '+ str(current_position))
         elif (((dx < 0) and (real_torque < -(target_torque * 2))) or ((dx > 0) and (real_torque > (target_torque * 2)))):
             finish = True
             print('Target_torque')
