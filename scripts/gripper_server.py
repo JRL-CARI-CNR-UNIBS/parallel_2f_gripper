@@ -68,22 +68,17 @@ def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rat
     joint_tollerance = 0.01
 
     ratio_mm_to_rad = ((joint_max_val - joint_min_val) / (mm_max))
-    red_p(str(ratio_mm_to_rad))
     default_velocity = mm_default_velocity * ratio_mm_to_rad
-    red_p('default_velocity ' + str(default_velocity))
 
     control_mode = srv.control_mode
     target_position = numpy.arcsin(((srv.position / 2) - (mm_zero_joint / 2)) / mm_crank_lenght)
-    red_p('position ' + str(srv.position))
-    red_p('target_position ' + str(target_position))
     target_velocity = ratio_mm_to_rad * (srv.velocity)
     target_torque = srv.torque
+
 
     if (control_mode != 'position' and control_mode != 'velocity' and control_mode != 'torque' and control_mode != 'open' and control_mode != 'close'):
         red_p('Wrong control mode')
         return 'false'
-    else:
-        print('type: ' + control_mode)
     if (control_mode == 'open'):
         target_position = joint_max_val
         print('Mode: open. Target_position: ' + str(target_position))
@@ -121,16 +116,22 @@ def move_gripper(srv, name, position, velocity, effort, joint_target_publish_rat
 
     if not target_velocity:
         target_velocity = default_velocity
-    print('             Target_velocity: ' + str(target_velocity))
+    print('            Target_velocity: ' + str(target_velocity))
     if not target_torque:
         target_torque = default_torque
-    print('             Target_torque: ' + str(target_torque))
+    print('            Target_torque: ' + str(target_torque))
+
+    green_p('A01')
 
     if (change_mode_srv(['parallel_gripper'], 'position') == 'false'):
         red_p('error with change_control_mode service')
-        raise 'false'
+        return 'false'
 
+    green_p('A02')
+
+    yellow_p('Wait for /parallel_gripper/joint_state message')
     current_joint_state = rospy.wait_for_message('/parallel_gripper/joint_states', JointState)
+    yellow_p('/parallel_gripper/joint_state message recived')
     current_position = current_joint_state.position[current_joint_state.name.index('right_finger_joint')]
 
     finish = False
