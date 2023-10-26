@@ -31,12 +31,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <!-- It is required to pass the args: robot_name-->
 <robot name="$(arg robot_name)" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find parallel_2f_gripper)/urdf/gripper.xacro" />
-  <xacro:arg name="prefix" default="null"/>
+  <xacro:arg name="prefix" default=""/>
 
   <xacro:property name="prefix" value="'$(arg prefix)'" />
-  <xacro:if value="${prefix == 'null'}">
-    <xacro:property name="prefix" value="''" />
-  </xacro:if>
 
   <xacro:property name="type"   value="'pybullet'" />
 

@@ -32,7 +32,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <!-- It is required to pass the args: robot_name-->
 <robot name="parallel_gripper">
-  <link name="gripper_base">
+  <link name="parallel_gripper_gripper_base">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -71,7 +71,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <xacro:property name="damping" value="1000.0" />
     <xacro:property name="spinning_friction" value="0.1" />
     <xacro:property name="lateral_friction" value="1.0" /> -->
-  <link name="right_crank">
+  <link name="parallel_gripper_right_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -105,7 +105,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="right_external_crank">
+  <link name="parallel_gripper_right_external_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -139,7 +139,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="right_rod">
+  <link name="parallel_gripper_right_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -173,7 +173,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="right_base_rod">
+  <link name="parallel_gripper_right_base_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -207,7 +207,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="right_phalanx">
+  <link name="parallel_gripper_right_phalanx">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -243,42 +243,42 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <!-- </xacro:if> -->
   <!-- <xacro:box name="${prefix}phalanx" width="${link_width}" height="${link_height}" length="${phalanx_length}"
                contact="${contact}" stiffness="${stiffness}" damping="${damping}" spinning_friction="${spinning_friction}" lateral_friction="${lateral_friction}"/> -->
-  <joint name="right_finger_joint" type="revolute">
+  <joint name="parallel_gripper_right_finger_joint" type="revolute">
     <origin rpy="0 0 0" xyz="0.055 0 0.05"/>
-    <parent link="gripper_base"/>
-    <child link="right_crank"/>
+    <parent link="parallel_gripper_gripper_base"/>
+    <child link="parallel_gripper_right_crank"/>
     <axis xyz="0 1 0"/>
     <limit effort="5" lower="-0.7956029534845354" upper="1" velocity="5.0"/>
   </joint>
-  <joint name="right_joint_2_5" type="fixed">
+  <joint name="parallel_gripper_right_joint_2_5" type="fixed">
     <origin rpy="0 -1.5707963267948966 0" xyz="0 0 0"/>
-    <parent link="right_rod"/>
-    <child link="right_phalanx"/>
+    <parent link="parallel_gripper_right_rod"/>
+    <child link="parallel_gripper_right_phalanx"/>
     <axis xyz="0 1 0"/>
   </joint>
-  <joint name="right_joint_1_2" type="revolute">
+  <joint name="parallel_gripper_right_joint_1_2" type="revolute">
     <origin rpy="0 1.5707963267948966 0" xyz="0 0 0.07"/>
-    <parent link="right_crank"/>
-    <child link="right_rod"/>
+    <parent link="parallel_gripper_right_crank"/>
+    <child link="parallel_gripper_right_rod"/>
     <axis xyz="0 1 0"/>
     <limit effort="10" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0"/>
-    <mimic joint="right_finger_joint" multiplier="-1" offset="0"/>
+    <mimic joint="parallel_gripper_right_finger_joint" multiplier="-1" offset="0"/>
   </joint>
-  <joint name="right_joint_2_3" type="revolute">
+  <joint name="parallel_gripper_right_joint_2_3" type="revolute">
     <origin rpy="0 1.5707963267948966 0" xyz="0 0 0.05"/>
-    <parent link="right_rod"/>
-    <child link="right_external_crank"/>
+    <parent link="parallel_gripper_right_rod"/>
+    <child link="parallel_gripper_right_external_crank"/>
     <axis xyz="0 1 0"/>
     <limit effort="10" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0"/>
-    <mimic joint="right_finger_joint" multiplier="1" offset="0"/>
+    <mimic joint="parallel_gripper_right_finger_joint" multiplier="1" offset="0"/>
   </joint>
-  <joint name="right_joint_3_4" type="revolute">
+  <joint name="parallel_gripper_right_joint_3_4" type="revolute">
     <origin rpy="0 1.5707963267948966 0" xyz="0 0 0.07"/>
-    <parent link="right_external_crank"/>
-    <child link="right_base_rod"/>
+    <parent link="parallel_gripper_right_external_crank"/>
+    <child link="parallel_gripper_right_base_rod"/>
     <axis xyz="0 1 0"/>
     <limit effort="10" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0"/>
-    <mimic joint="right_finger_joint" multiplier="-1" offset="0"/>
+    <mimic joint="parallel_gripper_right_finger_joint" multiplier="-1" offset="0"/>
   </joint>
   <!-- Add if to include this link only for rviz  -->
   <!-- <link name="${prefix}tip"/>
@@ -319,7 +319,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <xacro:property name="damping" value="1000.0" />
     <xacro:property name="spinning_friction" value="0.1" />
     <xacro:property name="lateral_friction" value="1.0" /> -->
-  <link name="left_crank">
+  <link name="parallel_gripper_left_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -353,7 +353,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="left_external_crank">
+  <link name="parallel_gripper_left_external_crank">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -387,7 +387,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="left_rod">
+  <link name="parallel_gripper_left_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -421,7 +421,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="left_base_rod">
+  <link name="parallel_gripper_left_base_rod">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -455,7 +455,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <lateral_friction value=""/>
   </contact>
   <!-- </xacro:if> -->
-  <link name="left_phalanx">
+  <link name="parallel_gripper_left_phalanx">
     <inertial>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <mass value="0.2"/>
@@ -491,43 +491,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   <!-- </xacro:if> -->
   <!-- <xacro:box name="${prefix}phalanx" width="${link_width}" height="${link_height}" length="${phalanx_length}"
                contact="${contact}" stiffness="${stiffness}" damping="${damping}" spinning_friction="${spinning_friction}" lateral_friction="${lateral_friction}"/> -->
-  <joint name="left_finger_joint" type="revolute">
+  <joint name="parallel_gripper_left_finger_joint" type="revolute">
     <origin rpy="0 0 3.141592653589793" xyz="-0.055 0 0.05"/>
-    <parent link="gripper_base"/>
-    <child link="left_crank"/>
+    <parent link="parallel_gripper_gripper_base"/>
+    <child link="parallel_gripper_left_crank"/>
     <axis xyz="0 1 0"/>
     <limit effort="5" lower="-0.7956029534845354" upper="1" velocity="5.0"/>
-    <mimic joint="right_finger_joint" multiplier="1" offset="0"/>
+    <mimic joint="parallel_gripper_right_finger_joint" multiplier="1" offset="0"/>
   </joint>
-  <joint name="left_joint_2_5" type="fixed">
+  <joint name="parallel_gripper_left_joint_2_5" type="fixed">
     <origin rpy="0 -1.5707963267948966 0" xyz="0 0 0"/>
-    <parent link="left_rod"/>
-    <child link="left_phalanx"/>
+    <parent link="parallel_gripper_left_rod"/>
+    <child link="parallel_gripper_left_phalanx"/>
     <axis xyz="0 1 0"/>
   </joint>
-  <joint name="left_joint_1_2" type="revolute">
+  <joint name="parallel_gripper_left_joint_1_2" type="revolute">
     <origin rpy="0 1.5707963267948966 0" xyz="0 0 0.07"/>
-    <parent link="left_crank"/>
-    <child link="left_rod"/>
+    <parent link="parallel_gripper_left_crank"/>
+    <child link="parallel_gripper_left_rod"/>
     <axis xyz="0 1 0"/>
     <limit effort="10" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0"/>
-    <mimic joint="left_finger_joint" multiplier="-1" offset="0"/>
+    <mimic joint="parallel_gripper_left_finger_joint" multiplier="-1" offset="0"/>
   </joint>
-  <joint name="left_joint_2_3" type="revolute">
+  <joint name="parallel_gripper_left_joint_2_3" type="revolute">
     <origin rpy="0 1.5707963267948966 0" xyz="0 0 0.05"/>
-    <parent link="left_rod"/>
-    <child link="left_external_crank"/>
+    <parent link="parallel_gripper_left_rod"/>
+    <child link="parallel_gripper_left_external_crank"/>
     <axis xyz="0 1 0"/>
     <limit effort="10" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0"/>
-    <mimic joint="left_finger_joint" multiplier="1" offset="0"/>
+    <mimic joint="parallel_gripper_left_finger_joint" multiplier="1" offset="0"/>
   </joint>
-  <joint name="left_joint_3_4" type="revolute">
+  <joint name="parallel_gripper_left_joint_3_4" type="revolute">
     <origin rpy="0 1.5707963267948966 0" xyz="0 0 0.07"/>
-    <parent link="left_external_crank"/>
-    <child link="left_base_rod"/>
+    <parent link="parallel_gripper_left_external_crank"/>
+    <child link="parallel_gripper_left_base_rod"/>
     <axis xyz="0 1 0"/>
     <limit effort="10" lower="-3.141592653589793" upper="3.141592653589793" velocity="2.0"/>
-    <mimic joint="left_finger_joint" multiplier="-1" offset="0"/>
+    <mimic joint="parallel_gripper_left_finger_joint" multiplier="-1" offset="0"/>
   </joint>
   <!-- Add if to include this link only for rviz  -->
   <!-- <link name="${prefix}tip"/>
@@ -563,21 +563,21 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <mu1>2</mu1>
       <mu2>2</mu2>
     </gazebo> -->
-  <transmission name="right_finger_joint_trans">
+  <transmission name="parallel_gripper_right_finger_joint_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="right_finger_joint">
+    <joint name="parallel_gripper_right_finger_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="right_finger_joint_motor">
+    <actuator name="parallel_gripper_right_finger_joint_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <transmission name="left_finger_joint_trans">
+  <transmission name="parallel_gripper_left_finger_joint_trans">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="left_finger_joint">
+    <joint name="parallel_gripper_left_finger_joint">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="left_finger_joint_motor">
+    <actuator name="parallel_gripper_left_finger_joint_motor">
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>

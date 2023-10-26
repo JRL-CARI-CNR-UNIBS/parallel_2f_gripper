@@ -28,7 +28,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<robot name="parallel_gripper" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
 <xacro:macro name="gripper" params="prefix:='' type:=rviz">
 
   <xacro:include filename="$(find parallel_2f_gripper)/urdf/box.xacro" />
